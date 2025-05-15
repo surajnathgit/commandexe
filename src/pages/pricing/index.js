@@ -1,29 +1,29 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import Head from 'next/head';
-import ImprovedHeader from '../components/ImprovedHeader';
-import EnhancedFooter from '../components/EnhancedFooter';
-import CommandXHero from '../components/CommandXHero';
+import ImprovedHeader from '../../components/ImprovedHeader';
+import EnhancedFooter from '../../components/EnhancedFooter';
+import PricingSection from '../../components/PricingSection';
 
-const HomePage = () => {
+const PricingPage = () => {
   return (
     <>
       <Head>
-        <title>CommandX | AI-Driven Operations Suite for Agencies</title>
+        <title>Pricing | CommandX</title>
         <meta
           name="description"
-          content="CommandX is an AI-powered platform for RCU, Legal, and Technical agencies, streamlining operations for NBFCs and banks."
+          content="Explore CommandX's flexible pricing plans for RCU, Legal, and Technical agencies, with add-ons for scalability."
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/logo.svg" />
       </Head>
       <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
         <ImprovedHeader />
-        <CommandXHero />
+        <PricingSection />
         <EnhancedFooter />
       </Box>
     </>
   );
 };
 
-export default HomePage;
+export default PricingPage;

@@ -1,0 +1,94 @@
+/* Custom fixes for the doc_parser application */
+
+/* Fix 1: Make product cards the same width */
+.MuiCard-root {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Fix 2: Header background when scrolled */
+header.MuiAppBar-root[style*="background"] {
+  background-color: rgba(255, 255, 255, 1) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Fix 3: Result display better text wrapping */
+.MuiTypography-root {
+  word-break: break-word !important;
+  white-space: pre-wrap !important;
+  overflow-wrap: break-word !important;
+}
+
+/* Fix 4: Enhanced loading animation */
+.loading-animation-container {
+  position: relative;
+  background: linear-gradient(135deg, #f8faff 0%, #f0f4ff 100%);
+}
+
+.loading-animation-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.03;
+  z-index: 0;
+  background: linear-gradient(-45deg, #3a86ff, #4361ee, #3a86ff, #7209b7);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+
+.loading-step {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.loading-step-indicator {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  margin-right: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  animation: fade 3s infinite;
+}
+
+.loading-step-1 .loading-step-indicator {
+  background-color: #3a86ff;
+}
+
+.loading-step-2 .loading-step-indicator {
+  background-color: #4361ee;
+  animation-delay: 1s;
+}
+
+.loading-step-3 .loading-step-indicator {
+  background-color: #7209b7;
+  animation-delay: 2s;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes fade {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
