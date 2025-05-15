@@ -114,7 +114,7 @@ const PricingSection = () => {
               mb: 8,
             }}
           >
-            Choose a plan that fits your agency's scale, with add-ons for extra flexibility.
+            Choose a plan that fits your agency&apos;s scale, with add-ons for extra flexibility.
           </Typography>
         </motion.div>
         <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }}>
@@ -164,7 +164,7 @@ const PricingSection = () => {
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 2 }}>
                       <AccountBalanceWalletIcon sx={{ fontSize: 30, color: theme.palette.primary.main, mr: 1 }} />
                       <Typography variant="h3" fontWeight={800}>
-                        ₹{plan.price}
+                        ₹{typeof plan.price === 'number' ? plan.price.toLocaleString('en-IN') : plan.price}
                       </Typography>
                     </Box>
                     <Box

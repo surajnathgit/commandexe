@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Container, Typography, Link, Grid, useTheme, alpha } from '@mui/material';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 const footerLinks = [
   { name: 'Home', href: '/' },
@@ -29,7 +30,7 @@ const EnhancedFooter = () => {
               transition={{ duration: 0.5 }}
             >
               <Box sx={{ mb: 2 }}>
-                <img src="/logo.svg" alt="CommandX Logo" style={{ height: '40px', width: 'auto' }} />
+                <Image src="/logo.png" alt="CommandX Logo" width={300} height={40} style={{ height: '40px', width: 'auto' }} />
               </Box>
               <Typography variant="body2" color="text.secondary">
                 CommandX is your AI-driven operations suite for RCU, Legal, and Technical agencies.

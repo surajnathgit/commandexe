@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from 'react';
 import {
   AppBar,
@@ -15,10 +16,11 @@ import {
 } from '@mui/material';
 import Link from 'next/link';
 import { Box } from '@mui/system';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 const navigationItems = [
   { name: 'Home', path: '/' },
@@ -49,7 +51,7 @@ const ImprovedHeader = () => {
         }}
       >
         <Box sx={{ maxWidth: '150px' }}>
-          <img src="/logo.svg" alt="CommandX Logo" style={{ height: '30px', width: 'auto' }} />
+          <Image src="/logo.png" alt="CommandX Logo" width={30} height={30} style={{ width: "30px" , height: '30px', width: 'auto' }} />
         </Box>
         <IconButton onClick={handleDrawerToggle} sx={{ color: 'white' }} aria-label="close menu">
           <CloseIcon />
@@ -107,7 +109,7 @@ const ImprovedHeader = () => {
             >
               <Link href="/" passHref style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', mr: 2 }}>
-                  <img src="/logo.svg" alt="CommandX Logo" style={{ height: '40px', width: 'auto' }} />
+                  <Image src="/logo.png" alt="CommandX Logo" width={300} height={40} style={{ height: '40px', width: 'auto' }} />
                 </Box>
               </Link>
             </motion.div>
@@ -163,8 +165,10 @@ const ImprovedHeader = () => {
               >
                 <Button
                   component={Link}
-                  href elems="true"
+                  hrefElems="true"
                   href="/contact"
+                 
+                  // onClick={router.push('/contact')}
                   variant="contained"
                   sx={{
                     ml: 2,
