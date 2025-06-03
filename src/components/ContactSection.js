@@ -79,7 +79,7 @@ const ContactPage = () => {
             Contact Us
           </Typography>
           <Typography variant="body1" sx={{ color: theme.palette.text.secondary, maxWidth: 'md', textAlign: 'center' }}>
-            We'd love to hear from you! Fill out the form below or reach out directly via email.
+            We&apos;d love to hear from you! Fill out the form below or reach out directly via email.
           </Typography>
         </Stack>
 
@@ -126,7 +126,7 @@ const ContactPage = () => {
                     Within 24 hours
                   </Typography>
                   <Typography variant="body2" sx={{ color: theme.palette.text.secondary }}>
-                    We'll get back to you promptly with the information you need.
+                     We&apos;ll get back to you promptly with the information you need.
                   </Typography>
                 </Stack>
               </Paper>
@@ -176,7 +176,9 @@ const ContactPage = () => {
                   Send Us a Message
                 </Typography>
                 <Typography variant="body2" sx={{ mt: 0.5 }}>
-                  We're here to help with any questions you might have
+                  We&apos;re here to help with any questions you might have
+
+
                 </Typography>
               </Box>
 
@@ -256,7 +258,8 @@ const ContactPage = () => {
                 </Button>
 
                 <Typography variant="body2" sx={{ color: theme.palette.text.secondary }}>
-                  By submitting this form, you agree to our{' '}
+By submitting this form, you agree to our&nbsp;
+
                   <Link
                     href="#"
                     sx={{

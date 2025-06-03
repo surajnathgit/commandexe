@@ -44,21 +44,22 @@ const fadeInUp = {
         >
           Flexible Pricing Plans
         </Typography>
-        <Typography
-          variant="body1"
-          sx={{
-            maxWidth: 600,
-            mx: "auto",
-            fontWeight: 400,
-            fontSize: { xs: "0.875rem", sm: "0.95rem" },
-            lineHeight: 1.5,
-            mt: 1,
-            color: theme.palette.text.secondary,
-          }}
-        >
-          Choose a plan that fits your agency's scale, with add-ons for
-          extra flexibility. Scale up or down as your needs change.
-        </Typography>
+       <Typography
+  variant="body1"
+  sx={{
+    maxWidth: 600,
+    mx: "auto",
+    fontWeight: 400,
+    fontSize: { xs: "0.875rem", sm: "0.95rem" },
+    lineHeight: 1.5,
+    mt: 1,
+    color: theme.palette.text.secondary,
+  }}
+>
+  Choose a plan that fits your agency&apos;s scale, with add-ons for
+  extra flexibility. Scale up or down as your needs change.
+</Typography>
+
       </Box>
     </motion.div>
   );
