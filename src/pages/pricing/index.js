@@ -2,7 +2,7 @@ import React from 'react';
 import { Box } from '@mui/material';
 import Head from 'next/head';
 import ImprovedHeader from '../../components/ImprovedHeader';
-import EnhancedFooter from '../../components/EnhancedFooter';
+import EnhancedFooter from '../../components/Footer';
 import PricingSection from '../../components/PricingSection';
 
 const PricingPage = () => {

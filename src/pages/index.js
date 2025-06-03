@@ -2,7 +2,7 @@ import React from 'react';
 import { Box } from '@mui/material';
 import Head from 'next/head';
 import ImprovedHeader from '../components/ImprovedHeader';
-import EnhancedFooter from '../components/EnhancedFooter';
+import Footer from '../components/Footer';
 import CommandXHero from '../components/CommandXHero';
 
 const HomePage = () => {
@@ -20,7 +20,7 @@ const HomePage = () => {
       <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
         <ImprovedHeader />
         <CommandXHero />
-        <EnhancedFooter />
+        <Footer />
       </Box>
     </>
   );
