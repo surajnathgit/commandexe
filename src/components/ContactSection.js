@@ -51,28 +51,11 @@ const ContactPage = () => {
         flexDirection: 'column',
         alignItems: 'center',
         fontFamily: 'Inter, sans-serif',
-        background: `
-          radial-gradient(ellipse at 20% 50%, ${alpha(theme.palette.primary.light, 0.15)} 0%, transparent 50%),
-          linear-gradient(to bottom, ${theme.palette.grey[50]} 0%, ${theme.palette.grey[100]} 100%)
-        `,
         borderTop: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
         position: 'relative',
         overflow: 'hidden'
       }}
     >
-      <Box
-        sx={{
-          position: 'absolute',
-          inset: 0,
-          backgroundImage: `
-            linear-gradient(to right, ${alpha(theme.palette.grey[300], 0.3)} 1px, transparent 1px),
-            linear-gradient(to bottom, ${alpha(theme.palette.grey[300], 0.3)} 1px, transparent 1px)
-          `,
-          backgroundSize: '40px 40px',
-          zIndex: 0
-        }}
-      />
-
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
         <Stack spacing={2} alignItems="center" sx={{ mb: 6 }}>
           <Typography variant="h4" sx={{ color: theme.palette.primary.main, fontWeight: 600, textAlign: 'center' }}>

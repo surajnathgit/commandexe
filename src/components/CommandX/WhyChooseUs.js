@@ -1,15 +1,66 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Container, Typography, useTheme, alpha } from "@mui/material";
 import {
   Build,
   Security,
   CloudSync,
   CheckCircleOutline,
+  AutoGraph,
 } from "@mui/icons-material";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const WhyChooseUs = () => {
   const theme = useTheme();
+  const [clickedIndex, setClickedIndex] = useState(null);
+
+  const cardVariants = {
+    initial: { scale: 1 },
+    hover: { scale: 1.02 },
+    tap: { scale: 0.98 },
+    clicked: { 
+      scale: [0.98, 1.02, 1],
+      transition: { duration: 0.3 }
+    }
+  };
+
+  const iconVariants = {
+    initial: { rotate: 0 },
+    hover: { rotate: 5, scale: 1.1 },
+    tap: { rotate: -5, scale: 0.95 }
+  };
+
+  const reasons = [
+    {
+      title: "Designed for Diverse Agencies",
+      description:
+        "Built specifically to address the unique reporting challenges faced by legal, technical, RCU, and other specialized agencies.",
+      icon: <Build fontSize="small" />,
+    },
+    {
+      title: "Intelligent AI Automation",
+      description:
+        "Leveraging cutting-edge AI for data extraction, processing, and seamless report generation.",
+      icon: <AutoGraph fontSize="small" />,
+    },
+    {
+      title: "User-Friendly Interface",
+      description:
+        "Powerful automation accessible through an intuitive, easy-to-navigate platform.",
+      icon: <CloudSync fontSize="small" />,
+    },
+    {
+      title: "Scalable & Future-Proof",
+      description:
+        "Grows with your agency, handling increasing report volumes without proportional increases in effort.",
+      icon: <Security fontSize="small" />,
+    },
+    {
+      title: "Dedicated Support",
+      description:
+        "Our expert team is here to ensure your smooth onboarding and continued success.",
+      icon: <CheckCircleOutline fontSize="small" />,
+    },
+  ];
 
   return (
     <motion.div
@@ -36,26 +87,6 @@ const WhyChooseUs = () => {
           overflow: "hidden",
         }}
       >
-        {/* Grid Pattern Background */}
-        <Box
-          sx={{
-            position: "absolute",
-            inset: 0,
-            backgroundImage: `
-            linear-gradient(to right, ${alpha(
-              theme.palette.grey[300],
-              0.3
-            )} 1px, transparent 1px),
-            linear-gradient(to bottom, ${alpha(
-              theme.palette.grey[300],
-              0.3
-            )} 1px, transparent 1px)
-          `,
-            backgroundSize: "40px 40px",
-            zIndex: 0,
-          }}
-        />
-
         <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -89,37 +120,20 @@ const WhyChooseUs = () => {
                 lineHeight: 1.5,
               }}
             >
-              Built by experts, trusted by NBFCs, and designed for scalability.
+               CommandExe is the Smart Choice for Modern Agencies
             </Typography>
           </motion.div>
 
           <Box
             sx={{
-              maxWidth: 800,
+              maxWidth: 1000,
               mx: "auto",
               display: "grid",
-              gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
+              gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr", md: "1fr 1fr 1fr" },
               gap: 2,
             }}
           >
-            {[
-              {
-                text: "Expert-built for RCU, Legal, and Technical workflows",
-                icon: <Build fontSize="small" />,
-              },
-              {
-                text: "Trusted by NBFC and Bank vendors across India",
-                icon: <Security fontSize="small" />,
-              },
-              {
-                text: "Dynamic, secure, and scalable platform",
-                icon: <CloudSync fontSize="small" />,
-              },
-              {
-                text: "Real support, not just a software license",
-                icon: <CheckCircleOutline fontSize="small" />,
-              },
-            ].map((item, index) => (
+            {reasons.map((item, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -127,66 +141,97 @@ const WhyChooseUs = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    p: 2,
-                    borderRadius: 2,
-                    backdropFilter: "blur(20px)",
-                    bgcolor: alpha(theme.palette.common.white, 0.85),
-                    border: `1px solid ${alpha(theme.palette.divider, 0.15)}`,
-                    boxShadow: `0 4px 20px ${alpha(
-                      theme.palette.primary.light,
-                      0.1
-                    )}`,
-                    transition: "all 0.3s ease",
-                    "&:hover": {
-                      transform: "translateY(-4px)",
-                      boxShadow: `0 8px 24px ${alpha(
-                        theme.palette.primary.light,
-                        0.15
-                      )}`,
-                      borderColor: alpha(theme.palette.primary.main, 0.2),
-                    },
-                  }}
+                <motion.div
+                  variants={cardVariants}
+                  initial="initial"
+                  whileHover="hover"
+                  whileTap="tap"
+                  animate={clickedIndex === index ? "clicked" : "initial"}
+                  onClick={() => setClickedIndex(index)}
+                  style={{ height: "100%" }}
                 >
                   <Box
                     sx={{
-                      width: 32,
-                      height: 32,
-                      borderRadius: "10px",
-                      bgcolor: alpha(theme.palette.primary.main, 0.08),
                       display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      mr: 1.5,
-                      color: theme.palette.primary.main,
-                      border: `1px solid ${alpha(
-                        theme.palette.primary.main,
+                      flexDirection: "column",
+                      p: 2.5,
+                      borderRadius: 2,
+                      backdropFilter: "blur(20px)",
+                      bgcolor: alpha(theme.palette.common.white, 0.85),
+                      border: `1px solid ${alpha(theme.palette.divider, 0.15)}`,
+                      boxShadow: `0 4px 20px ${alpha(
+                        theme.palette.primary.light,
                         0.1
                       )}`,
                       transition: "all 0.3s ease",
+                      height: "100%",
+                      minHeight: 250,
+                      cursor: "pointer",
                       "&:hover": {
-                        transform: "rotate(5deg) scale(1.1)",
-                        bgcolor: alpha(theme.palette.primary.main, 0.12),
+                        boxShadow: `0 8px 24px ${alpha(
+                          theme.palette.primary.light,
+                          0.15
+                        )}`,
+                        borderColor: alpha(theme.palette.primary.main, 0.2),
                       },
                     }}
                   >
-                    {item.icon}
+                    <motion.div
+                      variants={iconVariants}
+                      initial="initial"
+                      whileHover="hover"
+                      whileTap="tap"
+                    >
+                      <Box
+                        sx={{
+                          width: 40,
+                          height: 40,
+                          borderRadius: "10px",
+                          bgcolor: alpha(theme.palette.primary.main, 0.08),
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          mb: 2,
+                          color: theme.palette.primary.main,
+                          border: `1px solid ${alpha(
+                            theme.palette.primary.main,
+                            0.1
+                          )}`,
+                        }}
+                      >
+                        {item.icon}
+                      </Box>
+                    </motion.div>
+                    <Typography
+                      variant="h6"
+                      sx={{
+                        color: theme.palette.text.primary,
+                        fontWeight: 700,
+                        fontSize: { xs: "1rem", sm: "1.1rem" },
+                        mb: 1,
+                        lineHeight: 1.3,
+                        minHeight: "2.6em",
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      {item.title}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: theme.palette.text.secondary,
+                        fontSize: { xs: "0.85rem", sm: "0.9rem" },
+                        lineHeight: 1.5,
+                        flex: 1,
+                        display: "flex",
+                        alignItems: "flex-start",
+                      }}
+                    >
+                      {item.description}
+                    </Typography>
                   </Box>
-                  <Typography
-                    variant="body1"
-                    sx={{
-                      color: theme.palette.text.primary,
-                      fontWeight: 500,
-                      fontSize: { xs: "0.85rem", sm: "0.9rem" },
-                      lineHeight: 1.4,
-                    }}
-                  >
-                    {item.text}
-                  </Typography>
-                </Box>
+                </motion.div>
               </motion.div>
             ))}
           </Box>

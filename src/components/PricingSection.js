@@ -156,36 +156,7 @@ const addOns = [
         color: theme.palette.text.primary,
       }}
     >
-      <Box
-        sx={{
-          position: "absolute",
-          inset: 0,
-          backgroundImage: `
-            linear-gradient(to right, ${alpha(theme.palette.grey[300], 0.3)} 1px, transparent 1px),
-            linear-gradient(to bottom, ${alpha(theme.palette.grey[300], 0.3)} 1px, transparent 1px)
-          `,
-          backgroundSize: "40px 40px",
-          zIndex: 0,
-        }}
-      />
-
-      <Box
-        component={motion.div}
-        animate={{ rotate: [0, 360] }}
-        transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
-        sx={{
-          position: "absolute",
-          top: "20%",
-          right: "10%",
-          width: 400,
-          height: 400,
-          backgroundImage: `radial-gradient(circle, ${alpha(theme.palette.primary.light, 0.1)} 1px, transparent 1px)`,
-          backgroundSize: "30px 30px",
-          zIndex: 0,
-        }}
-      />
-
-      <Container maxWidth={false} sx={{ px: { xs: 1.5, md: 3 }, position: "relative", zIndex: 1 }}>
+      <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
         <PricingHeader />
         <PricingToggle isAnnual={isAnnual} setIsAnnual={setIsAnnual} />
 

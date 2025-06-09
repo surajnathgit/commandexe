@@ -54,36 +54,17 @@ const Footer = () => {
         background: `
           radial-gradient(ellipse at 20% 50%, ${alpha(
             theme.palette.primary.light,
-            0.15
+            0.1
           )} 0%, transparent 50%),
-          linear-gradient(to bottom, ${theme.palette.grey[50]} 0%, ${
-          theme.palette.grey[100]
-        } 100%)
+          linear-gradient(to bottom, #121212 0%, #1a1a1a 100%)
         `,
         borderTop: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
         position: "relative",
         overflow: "hidden",
+        color: '#ffffff',
+        
       }}
     >
-      <Box
-        sx={{
-          position: "absolute",
-          inset: 0,
-          backgroundImage: `
-          linear-gradient(to right, ${alpha(
-            theme.palette.grey[300],
-            0.3
-          )} 1px, transparent 1px),
-          linear-gradient(to bottom, ${alpha(
-            theme.palette.grey[300],
-            0.3
-          )} 1px, transparent 1px)
-        `,
-          backgroundSize: "40px 40px",
-          zIndex: 0,
-        }}
-      />
-
       <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
         <Grid container spacing={{ xs: 1, sm: 3, md: 4 }} alignItems="center">
           {/* Logo and description */}
@@ -105,8 +86,7 @@ const Footer = () => {
               </Box>
               <Typography
                 variant="body2"
-                color="text.secondary"
-                sx={{ mb: 2, lineHeight: 1.6 }}
+                sx={{ mb: 2, lineHeight: 1.6, color: 'rgba(255, 255, 255, 0.7)' }}
               >
                 CommandX is your AI-driven operations suite for RCU, Legal, and
                 Technical agencies.
@@ -125,7 +105,7 @@ const Footer = () => {
                       rel="noopener"
                       size="small"
                       sx={{
-                        color: "text.secondary",
+                        color: 'rgba(255, 255, 255, 0.7)',
                         "&:hover": {
                           color: "primary.main",
                           backgroundColor: alpha(
@@ -153,7 +133,7 @@ const Footer = () => {
             >
               <Typography
                 variant="subtitle1"
-                sx={{ fontWeight: 600, mb: 2, color: "text.primary" }}
+                sx={{ fontWeight: 600, mb: 2, color: '#ffffff' }}
               >
                 Quick Links
               </Typography>
@@ -163,10 +143,10 @@ const Footer = () => {
                     <motion.div whileHover={{ x: 3 }}>
                       <Link
                         href={link.href}
-                        color="text.secondary"
-                        underline="none"
                         sx={{
                           fontSize: "0.9rem",
+                          color: 'rgba(255, 255, 255, 0.7)',
+                          textDecoration: 'none',
                           "&:hover": {
                             color: "primary.main",
                           },
@@ -198,13 +178,7 @@ const Footer = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              {/* <Typography
-                variant="subtitle1"
-                sx={{ fontWeight: 600, mb: 2, color: "text.primary" }}
-              >
-                Stay Updated
-              </Typography>
-               */}
+            
               <Box 
                 component="form" 
                 onSubmit={handleSubscribe}
@@ -225,11 +199,15 @@ const Footer = () => {
                   sx={{
                     flexGrow: 1,
                     '& .MuiOutlinedInput-root': {
+                      backgroundColor: 'rgba(255, 255, 255, 0.05)',
                       '& fieldset': {
-                        borderColor: alpha(theme.palette.divider, 0.3),
+                        borderColor: 'rgba(255, 255, 255, 0.1)',
                       },
                       '&:hover fieldset': {
                         borderColor: theme.palette.primary.main,
+                      },
+                      '& input': {
+                        color: '#ffffff',
                       },
                     },
                   }}
@@ -251,7 +229,7 @@ const Footer = () => {
 
               <Typography
                 variant="subtitle1"
-                sx={{ fontWeight: 600, mb: 2, color: "text.primary" }}
+                sx={{ fontWeight: 600, mb: 2, color: '#ffffff' }}
               >
                 Contact
               </Typography>
@@ -262,10 +240,10 @@ const Footer = () => {
                 />
                 <Link
                   href="mailto:support@commandx.ai"
-                  color="text.secondary"
-                  underline="none"
                   sx={{
                     fontSize: "0.9rem",
+                    color: 'rgba(255, 255, 255, 0.7)',
+                    textDecoration: 'none',
                     "&:hover": {
                       color: "primary.main",
                     },
@@ -301,8 +279,7 @@ const Footer = () => {
         >
           <Typography
             variant="body2"
-            color="text.secondary"
-            sx={{ fontSize: "0.85rem" }}
+            sx={{ fontSize: "0.85rem", color: 'rgba(255, 255, 255, 0.7)' }}
           >
             © {new Date().getFullYear()} CommandX. All rights reserved.
           </Typography>
@@ -310,10 +287,10 @@ const Footer = () => {
           <Box sx={{ display: "flex", gap: 2, mt: { xs: 1, sm: 0 } }}>
             <Link
               href="/privacy"
-              color="text.secondary"
-              underline="none"
               sx={{
                 fontSize: "0.85rem",
+                color: 'rgba(255, 255, 255, 0.7)',
+                textDecoration: 'none',
                 "&:hover": {
                   color: "primary.main",
                 },
@@ -323,10 +300,10 @@ const Footer = () => {
             </Link>
             <Link
               href="/terms"
-              color="text.secondary"
-              underline="none"
               sx={{
                 fontSize: "0.85rem",
+                color: 'rgba(255, 255, 255, 0.7)',
+                textDecoration: 'none',
                 "&:hover": {
                   color: "primary.main",
                 },

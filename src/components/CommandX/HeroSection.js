@@ -155,25 +155,6 @@ const HeroSection = () => {
       }}
     >
       <Box
-        sx={{
-          position: "absolute",
-          inset: 0,
-          backgroundImage: `
-          linear-gradient(to right, ${alpha(
-            theme.palette.grey[300],
-            0.3
-          )} 1px, transparent 1px),
-          linear-gradient(to bottom, ${alpha(
-            theme.palette.grey[300],
-            0.3
-          )} 1px, transparent 1px)
-        `,
-          backgroundSize: "40px 40px",
-          zIndex: 0,
-        }}
-      />
-
-      <Box
         component={motion.div}
         animate={{ rotate: [0, 360] }}
         transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
@@ -257,10 +238,10 @@ const HeroSection = () => {
                 variant="h1"
                 sx={{
                   fontSize: {
-                    xs: "1.8rem",
-                    sm: "2.2rem",
-                    md: "2.8rem",
-                    lg: "3.2rem",
+                    xs: "1.5rem",
+                    sm: "1.8rem",
+                    md: "2.2rem",
+                    lg: "2.6rem",
                   },
                   fontWeight: 800,
                   lineHeight: 1.1,
@@ -271,7 +252,7 @@ const HeroSection = () => {
                   letterSpacing: "-0.03em",
                 }}
               >
-                The Future of{" "}
+                Automate Reporting.{" "}
                 <Box
                   component="span"
                   sx={{
@@ -279,7 +260,7 @@ const HeroSection = () => {
                     WebkitBackgroundClip: "text",
                   }}
                 >
-                  Agency Tech
+                  Drive Agency Growth
                 </Box>
               </Typography>
             </motion.div>
@@ -298,15 +279,12 @@ const HeroSection = () => {
                   maxWidth: { xs: "100%", md: 600 },
                   mb: { xs: 4, md: 4 },
                   fontWeight: 400,
-                  fontSize: { xs: "0.85rem", md: "1.1rem" },
+                  fontSize: { xs: "0.85rem", md: "1rem" },
                   lineHeight: { xs: 1.5, md: 1.6 },
                   px: { xs: 1, md: 0 },
                 }}
               >
-                CommandX delivers <strong>next-generation automation</strong>{" "}
-                with military-grade security and{" "}
-                <strong>real-time operational intelligence</strong> for modern
-                agencies.
+                Transform confusing manual processes into <strong>streamlined, AI-powered workflows</strong> across legal, technical, and RCU agencies. <strong>Reduce operational costs</strong>, enhance service delivery, and <strong>focus on strategic growth</strong>.
               </Typography>
             </motion.div>
 
@@ -370,7 +348,7 @@ const HeroSection = () => {
                     transition: "all 0.3s ease",
                   }}
                 >
-                  Activate AI
+                 Request a Demo
                 </Button>
                 <Button
                   variant="outlined"
@@ -401,7 +379,7 @@ const HeroSection = () => {
                     },
                   }}
                 >
-                  Watch Demo
+                  Learn More
                 </Button>
               </Stack>
             </motion.div>
