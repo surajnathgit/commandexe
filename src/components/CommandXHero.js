@@ -5,7 +5,7 @@ const ReportPainPoints = lazy(() => import('./CommandX/ReportPainPoints'));
 const FeaturesSection = lazy(() => import('./CommandX/FeaturesSection'));
 const WhyChooseUs = lazy(() => import('./CommandX/WhyChooseUs'));
 const CallToAction = lazy(() => import('./CommandX/CallToAction')); 
-// const BenefitsSection = lazy(() => import('./CommandX/BenefitsSection'));
+const BenefitsSection = lazy(() => import('./CommandX/BenefitsSection'));
 
 const CommandXHero = () => {
   return (
@@ -15,7 +15,7 @@ const CommandXHero = () => {
         <ReportPainPoints />
         {/* <CoreModules /> */}
         <FeaturesSection />
-        {/* <BenefitsSection /> */}
+        <BenefitsSection />
         <WhyChooseUs />
         <CallToAction />
       </Suspense>

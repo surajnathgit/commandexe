@@ -22,15 +22,12 @@ import {
   TrendingUp,
 } from "@mui/icons-material";
 
-/**
- * FeaturesSection Component
- * Displays key features of the application in a responsive grid layout
- * Each feature card includes an icon, title, description, and call-to-action
- */
+
+//  FeaturesSection 
+ 
 const FeaturesSection = () => {
   const theme = useTheme();
 
-  // Feature data array - each feature contains title, description points, icon, and theme color
   const features = [
     {
       title: "AI-Powered Data Ingestion",
@@ -74,7 +71,7 @@ const FeaturesSection = () => {
     // Main section container with gradient background
     <Box
       sx={{
-        py: { xs: 4, md: 6 }, // Responsive vertical padding
+        py: { xs: 2, md: 5 }, 
         background: `
         radial-gradient(ellipse at 20% 50%, ${alpha(
           theme.palette.primary.light,
@@ -136,9 +133,9 @@ const FeaturesSection = () => {
           variant="body1"
           sx={{
             color: theme.palette.text.secondary,
-            mb: { xs: 2, md: 3 }, // Responsive margin bottom
+            mb: { xs: 2, md: 3 }, 
             maxWidth: 600,
-            fontSize: { xs: "0.95rem", md: "1rem" }, // Responsive font size
+            fontSize: { xs: "0.95rem", md: "1rem" }, 
             lineHeight: 1.5,
             fontWeight: 400,
           }}
@@ -149,13 +146,12 @@ const FeaturesSection = () => {
         {/* Features grid - responsive layout */}
         <Grid container spacing={1.5} sx={{ justifyContent: "center", mb: { xs: 1, sm: 2 } }}>
           {features.map((feature, index) => (
-            // Grid items with responsive breakpoints
             <Grid 
               item 
-              xs={12} // Full width on mobile
-              sm={6}  // 2 cards per row on tablet
-              md={3}  // 4 cards per row on desktop
-              lg={3}  // 4 cards per row on large screens
+              xs={12} 
+              sm={6} 
+              md={3}  
+              lg={3}  
               key={index} 
               sx={{ display: "flex", justifyContent: "center" }}
             >

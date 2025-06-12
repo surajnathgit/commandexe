@@ -72,8 +72,8 @@ const WhyChooseUs = () => {
       <Box
         sx={{
           mt: 0,
-          py: { xs: 4, md: 5 },
-          px: { xs: 2, sm: 2.5, md: 3 },
+          py: { xs: 3, md: 4 },
+          px: { xs: 1.5, sm: 2, md: 2.5 },
           background: `
           radial-gradient(ellipse at 20% 50%, ${alpha(
             theme.palette.primary.light,
@@ -87,7 +87,7 @@ const WhyChooseUs = () => {
           overflow: "hidden",
         }}
       >
-        <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
+        <Container maxWidth="xl" sx={{ position: "relative", zIndex: 1 }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -102,8 +102,8 @@ const WhyChooseUs = () => {
                 background: `linear-gradient(90deg, ${theme.palette.text.primary}, ${theme.palette.primary.main})`,
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
-                mb: 1.5,
-                fontSize: { xs: "1.5rem", sm: "1.75rem", md: "2rem" },
+                mb: 1,
+                fontSize: { xs: "1.4rem", sm: "1.6rem", md: "1.8rem" },
               }}
             >
               Why Choose CommandX?
@@ -113,24 +113,31 @@ const WhyChooseUs = () => {
               align="center"
               sx={{
                 color: theme.palette.text.secondary,
-                mb: 4,
-                maxWidth: 600,
+                mb: 3,
+                maxWidth: 500,
                 mx: "auto",
-                fontSize: { xs: "0.9rem", sm: "1rem" },
-                lineHeight: 1.5,
+                fontSize: { xs: "0.85rem", sm: "0.9rem" },
+                lineHeight: 1.4,
               }}
             >
                CommandExe is the Smart Choice for Modern Agencies
             </Typography>
           </motion.div>
 
+          {/* Single Row Grid Layout */}
           <Box
             sx={{
-              maxWidth: 1000,
-              mx: "auto",
               display: "grid",
-              gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr", md: "1fr 1fr 1fr" },
-              gap: 2,
+              gridTemplateColumns: {
+                xs: "1fr",
+                sm: "repeat(2, 1fr)",
+                md: "repeat(3, 1fr)",
+                lg: "repeat(4, 1fr)",
+                xl: "repeat(5, 1fr)"
+              },
+              gap: { xs: 1, sm: 1.5, md: 2},
+              maxWidth: "100%",
+              mx: "auto",
             }}
           >
             {reasons.map((item, index) => (
@@ -154,7 +161,7 @@ const WhyChooseUs = () => {
                     sx={{
                       display: "flex",
                       flexDirection: "column",
-                      p: 2.5,
+                      p: { xs: 1.5, sm: 2 },
                       borderRadius: 2,
                       backdropFilter: "blur(20px)",
                       bgcolor: alpha(theme.palette.common.white, 0.85),
@@ -165,7 +172,7 @@ const WhyChooseUs = () => {
                       )}`,
                       transition: "all 0.3s ease",
                       height: "100%",
-                      minHeight: 250,
+                      minHeight: { xs: 200, sm: 220, md: 200 },
                       cursor: "pointer",
                       "&:hover": {
                         boxShadow: `0 8px 24px ${alpha(
@@ -184,14 +191,14 @@ const WhyChooseUs = () => {
                     >
                       <Box
                         sx={{
-                          width: 40,
-                          height: 40,
-                          borderRadius: "10px",
+                          width: { xs: 32, sm: 36 },
+                          height: { xs: 32, sm: 36 },
+                          borderRadius: "8px",
                           bgcolor: alpha(theme.palette.primary.main, 0.08),
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
-                          mb: 2,
+                          mb: 1.5,
                           color: theme.palette.primary.main,
                           border: `1px solid ${alpha(
                             theme.palette.primary.main,
@@ -207,10 +214,10 @@ const WhyChooseUs = () => {
                       sx={{
                         color: theme.palette.text.primary,
                         fontWeight: 700,
-                        fontSize: { xs: "1rem", sm: "1.1rem" },
+                        fontSize: { xs: "0.85rem", sm: "0.9rem", md: "0.95rem" },
                         mb: 1,
                         lineHeight: 1.3,
-                        minHeight: "2.6em",
+                        minHeight: { xs: "2.4em", sm: "2.6em" },
                         display: "flex",
                         alignItems: "center",
                       }}
@@ -221,11 +228,13 @@ const WhyChooseUs = () => {
                       variant="body2"
                       sx={{
                         color: theme.palette.text.secondary,
-                        fontSize: { xs: "0.85rem", sm: "0.9rem" },
-                        lineHeight: 1.5,
+                        fontSize: { xs: "0.75rem", sm: "0.8rem", md: "0.82rem" },
+                        lineHeight: 1.4,
                         flex: 1,
                         display: "flex",
                         alignItems: "flex-start",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
                       }}
                     >
                       {item.description}

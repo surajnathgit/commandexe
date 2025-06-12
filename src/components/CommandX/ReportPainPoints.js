@@ -1,89 +1,103 @@
-import React from 'react';
-import {
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  Typography,
-  Box,
-  useTheme,
-  alpha,
-  Container,
-} from '@mui/material';
-import {
-  ExpandMore,
-  ErrorOutline,
-  AssignmentLate,
-  Timer,
-  AttachMoney,
-  Warning,
-} from '@mui/icons-material';
+import { Box, Card, CardContent, Container, Typography } from '@mui/material';
+import { ErrorOutline, AssignmentLate, Timer, AttachMoney, Warning } from '@mui/icons-material';
+import { styled } from '@mui/system';
 import { motion } from 'framer-motion';
+import { useTheme } from '@mui/material';
+
+const painPoints = [
+  {
+    title: "Manual Data Entry Headaches",
+    details: "Endless copying and pasting information across multiple documents leads to errors and wasted time.",
+    icon: <ErrorOutline fontSize="medium" />,
+    color: '#d32f2f' 
+  },
+  {
+    title: "Confusing & Inconsistent Forms",
+    details: "Struggling with variations in customer templates and internal forms creates chaos.",
+    icon: <AssignmentLate fontSize="medium" />,
+    color: '#f57c00' 
+  },
+  {
+    title: "Slow Turnaround Times",
+    details: "Delays in report generation mean lost valuable time and delayed client approvals.",
+    icon: <Timer fontSize="medium" />,
+    color: '#0288d1' 
+  },
+  {
+    title: "High Operational Costs",
+    details: "Draining resources on repetitive, error-prone tasks impacts your bottom line.",
+    icon: <AttachMoney fontSize="medium" />,
+    color: '#388e3c' 
+  },
+  {
+    title: "Lack of Standardization",
+    details: "Battling with report inconsistencies and compliance risks can be a nightmare.",
+    icon: <Warning fontSize="medium" />,
+    color: '#7b1fa2' 
+  }
+];
+
+// Styled components for the card design
+const StyledCard = styled(Card)(({ theme }) => ({
+  height: '180px', 
+  width: '100%', 
+  display: 'flex',
+  flexDirection: 'column',
+  borderRadius: '12px',
+  boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)',
+  transition: 'all 0.3s ease',
+  backgroundColor: '#ffffff',
+  '&:hover': {
+    boxShadow: '0 6px 12px rgba(0, 0, 0, 0.15)',
+    transform: 'translateY(-3px)',
+  },
+}));
+
+const IconWrapper = styled(Box)(({ theme, color }) => ({
+  width: 40,
+  height: 40,
+  borderRadius: '8px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  backgroundColor: `${color}15`,
+  marginRight: theme.spacing(1.5),
+  color: color,
+}));
+
+const CardsGrid = styled(Box)({
+  display: 'grid',
+  width: '100%',
+});
 
 const ReportPainPoints = () => {
   const theme = useTheme();
 
-  const painPoints = [
-    {
-      title: ": Manual Data Entry Headaches",
-      details: "Endless copying and pasting information across multiple documents leads to errors and wasted time.",
-      icon: <ErrorOutline />,
-      color: theme.palette.error.main
-    },
-    {
-      title: " Confusing & Inconsistent Forms",
-      details: "Struggling with variations in customer templates and internal forms creates chaos.",
-      icon: <AssignmentLate />,
-      color: theme.palette.warning.main
-    },
-    {
-      title: " Slow Turnaround Times",
-      details: "Delays in report generation mean lost valuable time and delayed client approvals.",
-      icon: <Timer />,
-      color: theme.palette.info.main
-    },
-    {
-      title: " High Operational Costs",
-      details: "Draining resources on repetitive, error-prone tasks impacts your bottom line.",
-      icon: <AttachMoney />,
-      color: theme.palette.success.main
-    },
-    {
-      title: " Lack of Standardization",
-      details: "Battling with report inconsistencies and compliance risks can be a nightmare.",
-      icon: <Warning />,
-      color: theme.palette.secondary.main
-    }
-  ];
-
   return (
     <Box
+      component="section"
       sx={{
-        py: { xs: 6, md: 8 },
+        py: { xs: 2, md: 4 },
         px: { xs: 2, sm: 3, md: 4 },
         background: `
-          radial-gradient(ellipse at 20% 50%, ${alpha(
-            theme.palette.primary.light,
-            0.15
-          )} 0%, transparent 50%),
-          linear-gradient(to bottom, ${theme.palette.grey[50]} 0%, ${
-            theme.palette.grey[100]
-          } 100%)
+          radial-gradient(ellipse at 20% 50%, ${theme.palette.primary.light}26 0%, transparent 50%),
+          linear-gradient(to bottom, ${theme.palette.grey[50]} 0%, ${theme.palette.grey[100]} 100%)
         `,
       }}
     >
-      <Container maxWidth="lg">
+      <Container maxWidth="xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
         >
-          <Typography 
-            variant="h4" 
-            component="h2" 
-            sx={{ 
-              textAlign: 'center', 
-              mb: { xs: 3, sm: 4, md: 5 },
+          <Typography
+            variant="h4"
+            component="h2"
+            sx={{
+              textAlign: 'center',
+              mb: { xs: 4, sm: 5 },
               fontWeight: 800,
               background: `linear-gradient(90deg, ${theme.palette.text.primary}, ${theme.palette.primary.main})`,
               WebkitBackgroundClip: "text",
@@ -97,12 +111,18 @@ const ReportPainPoints = () => {
             Are Manual Reports Holding Your Agency Back?
           </Typography>
         </motion.div>
-        
-        <Box 
-          sx={{ 
-            maxWidth: 800, 
-            margin: '0 auto',
-            px: { xs: 1, sm: 2 },
+
+        {/* Responsive Grid Layout */}
+        <CardsGrid
+          sx={{
+            gap: 1.5,
+            gridTemplateColumns: {
+              xs: '1fr',
+              sm: 'repeat(2, 1fr)',
+              md: 'repeat(3, 1fr)',
+              lg: 'repeat(4, 1fr)',
+              xl: 'repeat(5, 1fr)',
+            },
           }}
         >
           {painPoints.map((point, index) => (
@@ -113,106 +133,42 @@ const ReportPainPoints = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <Accordion 
-                sx={{ 
-                  mb: { xs: 1.5, sm: 2 },
-                  borderRadius: '16px !important',
-                  overflow: 'hidden',
-                  '&:before': {
-                    display: 'none',
-                  },
-                  boxShadow: `0 4px 20px ${alpha(theme.palette.primary.light, 0.1)}`,
-                  border: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
-                  '&.Mui-expanded': {
-                    margin: '0 0 16px 0',
-                    boxShadow: `0 8px 24px ${alpha(point.color, 0.15)}`,
-                    borderColor: alpha(point.color, 0.2),
-                  },
-                }}
-              >
-                <AccordionSummary
-                  expandIcon={
-                    <ExpandMore 
-                      sx={{ 
-                        color: point.color,
-                        transition: 'transform 0.3s ease',
-                        fontSize: '1.5rem',
-                      }} 
-                    />
-                  }
-                  aria-controls={`panel${index}-content`}
-                  id={`panel${index}-header`}
-                  sx={{
-                    '& .MuiAccordionSummary-content': {
-                      margin: '16px 0',
-                    },
-                    '&.Mui-expanded': {
-                      minHeight: '72px',
-                      backgroundColor: alpha(point.color, 0.05),
-                    },
-                    px: { xs: 2, sm: 3 },
-                  }}
-                >
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2.5 }}>
-                    <Box
-                      sx={{
-                        width: 44,
-                        height: 44,
-                        borderRadius: '12px',
-                        bgcolor: alpha(point.color, 0.1),
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: point.color,
-                        border: `1px solid ${alpha(point.color, 0.2)}`,
-                        transition: 'all 0.3s ease',
-                        '&:hover': {
-                          transform: 'scale(1.05)',
-                          bgcolor: alpha(point.color, 0.15),
-                        },
-                      }}
-                    >
-                      {point.icon}
-                    </Box>
-                    <Typography 
-                      variant="h6" 
-                      component="h3" 
-                      sx={{ 
-                        fontWeight: 700,
-                        color: theme.palette.text.primary,
-                        fontSize: { xs: '1rem', sm: '1.1rem' },
-                        lineHeight: 1.3,
-                      }}
-                    >
-                      {point.title}
-                    </Typography>
-                  </Box>
-                </AccordionSummary>
-                <AccordionDetails
-                  sx={{
-                    p: { xs: 2, sm: 3 },
-                    backgroundColor: alpha(theme.palette.common.white, 0.8),
-                    borderTop: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
-                  }}
-                >
+              <StyledCard sx={{ p: 2 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                  <IconWrapper color={point.color}>{point.icon}</IconWrapper>
                   <Typography
+                    variant="subtitle2"
+                    component="h3"
                     sx={{
-                      color: theme.palette.text.secondary,
-                      fontSize: { xs: '0.9rem', sm: '1rem' },
-                      lineHeight: 1.6,
-                      maxWidth: '90%',
+                      fontWeight: 600,
+                      color: '#111827',
+                      fontSize: '1rem',
+                      lineHeight: 1.3,
+                    }}
+                  >
+                    {point.title}
+                  </Typography>
+                </Box>
+
+                <CardContent sx={{ p: 0, flexGrow: 1, display: 'flex', alignItems: 'flex-start' }}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: '#4b5563',
+                      fontSize: '0.875rem',
+                      lineHeight: 1.5,
                     }}
                   >
                     {point.details}
                   </Typography>
-                </AccordionDetails>
-              </Accordion>
+                </CardContent>
+              </StyledCard>
             </motion.div>
           ))}
-        </Box>
+        </CardsGrid>
       </Container>
     </Box>
   );
 };
 
-export default ReportPainPoints; 
+export default ReportPainPoints;

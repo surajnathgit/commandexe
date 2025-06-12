@@ -396,6 +396,8 @@ const HeroSection = () => {
               mt: { xs: 2, md: 0 },
             }}
           >
+
+            {/* Right side Demo Card Box */}
             <Box
               sx={{
                 position: "relative",
