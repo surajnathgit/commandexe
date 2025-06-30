@@ -1,183 +1,296 @@
-import React, { useState } from 'react';
-import { Box, Container, Typography, TextField, Button, useTheme } from '@mui/material';
-import { motion } from 'framer-motion';
-import EmailIcon from '@mui/icons-material/Email';
-import { toast } from 'react-toastify';
+import React from 'react';
+import {
+  Box,
+  Typography,
+  Grid,
+  TextField,
+  Button,
+  Paper,
+  List,
+  ListItem,
+  ListItemIcon,
+  Link,
+  Container,
+  Stack,
+  useTheme,
+  alpha
+} from '@mui/material';
+import {
+  Email as EmailIcon,
+  AccessTime as AccessTimeIcon,
+  FiberManualRecord as FiberManualRecordIcon,
+  Send as SendIcon
+} from '@mui/icons-material';
 
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: 'easeOut' } },
-};
-
-const ContactSection = () => {
+const ContactPage = () => {
   const theme = useTheme();
-  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
-  const [submitting, setSubmitting] = useState(false);
+  const [formData, setFormData] = React.useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmitting(true);
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      toast.success('Message sent successfully!');
-      setFormData({ name: '', email: '', subject: '', message: '' });
-    } catch (error) {
-      toast.error('Failed to send message. Please try again.');
-    } finally {
-      setSubmitting(false);
-    }
+    console.log(formData);
+    alert('Message sent! We will get back to you soon.');
   };
 
   return (
     <Box
-      component="section"
       sx={{
-        py: { xs: 8, md: 10 },
-        background: 'linear-gradient(135deg, #F8FAFF 0%, #F0F4FF 100%)',
+        minHeight: '100vh',
+        py: 8,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        fontFamily: 'Inter, sans-serif',
+        borderTop: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
         position: 'relative',
-        overflow: 'hidden',
+        overflow: 'hidden'
       }}
     >
-      <Container maxWidth="md">
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-          <Typography
-            variant="h3"
-            sx={{
-              fontWeight: 700,
-              mb: 2,
-              fontSize: { xs: '1.8rem', sm: '2rem', md: '2.5rem' },
-              textAlign: 'center',
-              color: '#3A86FF',
-            }}
-          >
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+        <Stack spacing={2} alignItems="center" sx={{ mb: 6 }}>
+          <Typography variant="h4" sx={{ color: theme.palette.primary.main, fontWeight: 600, textAlign: 'center' }}>
             Contact Us
           </Typography>
-          <Typography
-            variant="body1"
-            color="text.secondary"
-            sx={{
-              maxWidth: 600,
-              mx: 'auto',
-              fontWeight: 400,
-              textAlign: 'center',
-              mb: 6,
-            }}
-          >
-            We’d love to hear from you! Fill out the form below or reach out directly via email.
+          <Typography variant="body1" sx={{ color: theme.palette.text.secondary, maxWidth: 'md', textAlign: 'center' }}>
+            We&apos;d love to hear from you! Fill out the form below or reach out directly via email.
           </Typography>
-        </motion.div>
+        </Stack>
 
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            sx={{
-              p: 4,
-              borderRadius: 2,
-              background: 'rgba(255, 255, 255, 0.9)',
-              boxShadow: '0px 10px 30px rgba(0, 0, 0, 0.05)',
-              maxWidth: 500,
-              mx: 'auto',
-            }}
-          >
-            <Typography
-              variant="h6"
-              sx={{
-                fontWeight: 600,
-                mb: 3,
-                textAlign: 'left',
-              }}
-            >
-              Send Us a Message
-            </Typography>
+        <Grid container spacing={4} justifyContent="center">
+          {/* Left Column */}
+          <Grid item xs={12} md={5}>
+            <Stack spacing={3}>
+              {/* Email Info */}
+              <Paper elevation={1} sx={{ p: 3 }}>
+                <Stack spacing={1}>
+                  <Stack direction="row" spacing={1} alignItems="center" sx={{ color: theme.palette.primary.main }}>
+                    <EmailIcon fontSize="small" />
+                    <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+                      Email Us
+                    </Typography>
+                  </Stack>
+                  <Link
+                    href="mailto:Commandexe@fincoopers.in"
+                    sx={{
+                      color: theme.palette.text.secondary,
+                      fontWeight: 500,
+                      wordBreak: 'break-word',
+                      '&:hover': { color: theme.palette.primary.main }
+                    }}
+                  >
+                    Commandexe@fincoopers.in
+                  </Link>
+                  <Typography variant="body2" sx={{ color: theme.palette.text.secondary }}>
+                    Our team is ready to assist you via email
+                  </Typography>
+                </Stack>
+              </Paper>
 
-            <TextField
-              fullWidth
-              label="Name *"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-              sx={{ mb: 3 }}
-              variant="outlined"
-            />
-            <TextField
-              fullWidth
-              label="Email *"
-              name="email"
-              type="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              sx={{ mb: 3 }}
-              variant="outlined"
-            />
-            <TextField
-              fullWidth
-              label="Subject *"
-              name="subject"
-              value={formData.subject}
-              onChange={handleChange}
-              required
-              sx={{ mb: 3 }}
-              variant="outlined"
-            />
-            <TextField
-              fullWidth
-              label="Message *"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              required
-              multiline
-              rows={4}
-              sx={{ mb: 3 }}
-              variant="outlined"
-            />
-            <Button
-              type="submit"
-              variant="contained"
-              fullWidth
-              disabled={submitting}
-              sx={{
-                py: 1.5,
-                background: 'linear-gradient(90deg, #3A86FF, #00CFFD)',
-                borderRadius: 50,
-                fontWeight: 600,
-              }}
-            >
-              {submitting ? 'Sending...' : 'Send Message'}
-            </Button>
+              {/* Response Time */}
+              <Paper elevation={1} sx={{ p: 3 }}>
+                <Stack spacing={1}>
+                  <Stack direction="row" spacing={1} alignItems="center" sx={{ color: theme.palette.primary.main }}>
+                    <AccessTimeIcon fontSize="small" />
+                    <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+                      Response Time
+                    </Typography>
+                  </Stack>
+                  <Typography variant="body2" sx={{ fontWeight: 600 }}>
+                    Within 24 hours
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: theme.palette.text.secondary }}>
+                     We&apos;ll get back to you promptly with the information you need.
+                  </Typography>
+                </Stack>
+              </Paper>
 
-            <Typography
-              variant="body2"
-              color="text.secondary"
-              sx={{ mt: 3, textAlign: 'center' }}
-            >
-              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 1 }}>
-                <EmailIcon sx={{ fontSize: 18, color: theme.palette.primary.main }} />
-                Or email us directly at{' '}
-                <a href="mailto:fintech@fincoopers.in" style={{ color: theme.palette.primary.main }}>
-                  fintech@fincoopers.in
-                </a>
+              {/* Why Contact Us */}
+              <Paper elevation={1} sx={{ p: 3, bgcolor: alpha(theme.palette.primary.dark, 0.1) }}>
+                <Stack spacing={2}>
+                  <Typography variant="subtitle1" sx={{ color: theme.palette.primary.main, fontWeight: 600 }}>
+                    Why Contact Us?
+                  </Typography>
+                  <List dense sx={{ p: 0 }}>
+                    {[
+                      'Get personalized solutions for your document needs',
+                      'Learn about our AI-powered document processing',
+                      'Request a demo of our platform'
+                    ].map((item, idx) => (
+                      <ListItem key={idx} sx={{ p: 0, alignItems: 'flex-start' }}>
+                        <ListItemIcon sx={{ minWidth: 24 }}>
+                          <FiberManualRecordIcon
+                            sx={{ fontSize: '0.5rem', mt: '6px', color: theme.palette.primary.main }}
+                          />
+                        </ListItemIcon>
+                        <Typography variant="body2" sx={{ color: theme.palette.text.primary }}>
+                          {item}
+                        </Typography>
+                      </ListItem>
+                    ))}
+                  </List>
+                </Stack>
+              </Paper>
+            </Stack>
+          </Grid>
+
+          {/* Right Column (Form) */}
+          <Grid item xs={12} md={7}>
+            <Paper elevation={1}>
+              <Box
+                sx={{
+                  background: `linear-gradient(to right, ${theme.palette.primary.main}, ${theme.palette.primary.light})`,
+                  borderTopLeftRadius: '8px',
+                  borderTopRightRadius: '8px',
+                  p: 3,
+                  color: 'white'
+                }}
+              >
+                <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                  Send Us a Message
+                </Typography>
+                <Typography variant="body2" sx={{ mt: 0.5 }}>
+                  We&apos;re here to help with any questions you might have
+
+
+                </Typography>
               </Box>
-            </Typography>
-            <Typography
-              variant="body2"
-              color="text.secondary"
-              sx={{ mt: 1, textAlign: 'center' }}
-            >
-              We’ll get back to you within 24 hours with the information you need.
-            </Typography>
-          </Box>
-        </motion.div>
+
+              <Box
+                component="form"
+                onSubmit={handleSubmit}
+                sx={{ p: 3, display: 'flex', flexDirection: 'column', gap: 3 }}
+              >
+                <Grid container spacing={2}>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      fullWidth
+                      label="Name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                      placeholder="Your name"
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      fullWidth
+                      label="Email"
+                      name="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      placeholder="Your email address"
+                    />
+                  </Grid>
+                </Grid>
+
+                <TextField
+                  fullWidth
+                  label="Subject"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  required
+                  placeholder="What is this regarding?"
+                />
+
+                <TextField
+                  fullWidth
+                  label="Message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  multiline
+                  rows={4}
+                  placeholder="How can we help you?"
+                />
+
+                <Button
+                  type="submit"
+                  variant="contained"
+                  size="large"
+                  endIcon={<SendIcon />}
+                  sx={{
+                    background: `linear-gradient(to right, ${theme.palette.primary.main}, ${theme.palette.primary.light})`,
+                    color: 'white',
+                    py: 1.5,
+                    '&:hover': {
+                      background: `linear-gradient(to right, ${theme.palette.primary.dark}, ${theme.palette.primary.main})`
+                    },
+                    boxShadow: `0 4px 6px ${alpha(theme.palette.primary.main, 0.2)}`,
+                    transition: 'all 0.3s ease',
+                    '&:active': {
+                      transform: 'translateY(1px)'
+                    }
+                  }}
+                >
+                  Send Message
+                </Button>
+
+                <Typography variant="body2" sx={{ color: theme.palette.text.secondary }}>
+By submitting this form, you agree to our&nbsp;
+
+                  <Link
+                    href="#"
+                    sx={{
+                      color: theme.palette.primary.main,
+                      textDecoration: 'underline',
+                      '&:hover': { color: theme.palette.primary.dark }
+                    }}
+                  >
+                    Privacy Policy
+                  </Link>
+                  .
+                </Typography>
+              </Box>
+            </Paper>
+          </Grid>
+        </Grid>
       </Container>
+
+      {/* Chat Button */}
+      <Button
+        aria-label="Help chat button"
+        sx={{
+          position: 'fixed',
+          bottom: 32,
+          right: 32,
+          bgcolor: theme.palette.primary.main,
+          color: 'white',
+          borderRadius: '50%',
+          minWidth: 56,
+          width: 56,
+          height: 56,
+          boxShadow: 3,
+          '&:hover': {
+            bgcolor: theme.palette.primary.dark,
+            transform: 'scale(1.05)'
+          },
+          transition: 'all 0.2s ease'
+        }}
+      >
+        <Box
+          component="img"
+          src="https://storage.googleapis.com/a1aa/image/c7088a1d-f964-49d9-ea08-142e227063a8.jpg"
+          alt="Chat bubble icon"
+          sx={{ width: 24, height: 24 }}
+        />
+      </Button>
     </Box>
   );
 };
 
-export default ContactSection;
+export default ContactPage;

@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import Head from 'next/head';
 import { motion } from 'framer-motion'; // Import framer-motion for animations
 import ImprovedHeader from '../components/ImprovedHeader';
-import EnhancedFooter from '../components/EnhancedFooter';
+import Footer from '../components/Footer';
 import CommandXHero from '../components/CommandXHero';
 
 // Animation variants for the header
@@ -37,37 +37,9 @@ const HomePage = () => {
         <link rel="icon" href="/logo.svg" />
       </Head>
       <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-        {/* Animate the Header */}
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={headerVariants}
-          // Respect reduced motion preferences
-          transition={{ ...(typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? { duration: 0 } : {}) }}
-        >
-          <ImprovedHeader />
-        </motion.div>
-
-        {/* Animate the Hero Section */}
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={heroVariants}
-          transition={{ ...(typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? { duration: 0 } : {}) }}
-        >
-          <CommandXHero />
-        </motion.div>
-
-        {/* Animate the Footer (with viewport trigger) */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          variants={footerVariants}
-          transition={{ ...(typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? { duration: 0 } : {}) }}
-        >
-          <EnhancedFooter />
-        </motion.div>
+        <ImprovedHeader />
+        <CommandXHero />
+        <Footer />
       </Box>
     </>
   );
