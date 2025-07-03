@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   AppBar,
   Toolbar,
@@ -13,14 +13,14 @@ import {
   useTheme,
   useMediaQuery,
   alpha,
+  Box,
 } from '@mui/material';
 import Link from 'next/link';
-import { Box } from '@mui/system';
-import { useRouter } from 'next/navigation';
+import { motion } from 'framer-motion';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
-import { motion } from 'framer-motion';
 import Image from 'next/image';
+import BookDemoModal from './BookDemoModal';
 
 const navigationItems = [
   { name: 'Home', path: '/' },
@@ -31,11 +31,24 @@ const navigationItems = [
 const ImprovedHeader = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activePath, setActivePath] = useState('/');
+
+  useEffect(() => {
+    setActivePath(window.location.pathname);
+  }, []);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+  };
+
+  const handleModalOpen = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
   };
 
   const drawerContent = (
@@ -51,7 +64,7 @@ const ImprovedHeader = () => {
         }}
       >
         <Box sx={{ maxWidth: '150px' }}>
-          <Image src="/logo.png" alt="CommandX Logo" width={30} height={30} style={{ width: "30px" , height: '30px', width: 'auto' }} />
+          <Image src="/logo.png" alt="CommandX Logo" width={30} height={30} style={{ width: '30px', height: '30px', width: 'auto' }} />
         </Box>
         <IconButton onClick={handleDrawerToggle} sx={{ color: 'white' }} aria-label="close menu">
           <CloseIcon />
@@ -76,8 +89,8 @@ const ImprovedHeader = () => {
             <Typography
               variant="subtitle1"
               sx={{
-                fontWeight: router.pathname === item.path ? 600 : 400,
-                color: router.pathname === item.path ? theme.palette.primary.main : 'inherit',
+                fontWeight: activePath === item.path ? 600 : 400,
+                color: activePath === item.path ? theme.palette.primary.main : 'inherit',
               }}
             >
               {item.name}
@@ -135,9 +148,9 @@ const ImprovedHeader = () => {
                           position: 'absolute',
                           bottom: 6,
                           left: '50%',
-                          transform: router.pathname === item.path ? 'translateX(-50%)' : 'translateX(-50%) scaleX(0)',
+                          transform: activePath === item.path ? 'translateX(-50%)' : 'translateX(-50%) scaleX(0)',
                           height: 3,
-                          width: router.pathname === item.path ? '20px' : '0',
+                          width: activePath === item.path ? '20px' : '0',
                           borderRadius: '10px',
                           backgroundColor: theme.palette.primary.main,
                           transition: 'all 0.3s ease',
@@ -164,11 +177,7 @@ const ImprovedHeader = () => {
                 transition={{ duration: 0.5 }}
               >
                 <Button
-                  component={Link}
-                  hrefElems="true"
-                  href="/contact"
-                 
-                  // onClick={router.push('/contact')}
+                  onClick={handleModalOpen}
                   variant="contained"
                   sx={{
                     ml: 2,
@@ -211,6 +220,7 @@ const ImprovedHeader = () => {
       >
         {drawerContent}
       </Drawer>
+      <BookDemoModal isOpen={isModalOpen} onClose={handleModalClose} />
       <Toolbar />
     </>
   );
