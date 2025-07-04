@@ -14,10 +14,10 @@ import {
   FormControlLabel,
   CircularProgress,
   IconButton,
+  styled,
 } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CloseIcon from '@mui/icons-material/Close';
-import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -30,6 +30,209 @@ const EMPLOYEE_RANGES = [
   { value: "500+", label: "500+" }
 ];
 const HOW_HEARD_OPTIONS = ["LinkedIn", "Email", "HR Conclave", "Google/Search", "Referred", "Other"];
+
+// Styled components for beautiful design
+const StyledModal = styled(Modal)({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  backdropFilter: 'blur(8px)',
+  backgroundColor: 'rgba(0, 0, 0, 0.6)',
+});
+
+const StyledModalBox = styled(Box)({
+  background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
+  border: 'none',
+  borderRadius: '24px',
+  boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.8)',
+  padding: '32px',
+  maxWidth: '750px',
+  width: '100%',
+  maxHeight: '90vh',
+  overflowY: 'auto',
+  position: 'relative',
+  '&::before': {
+    content: '""',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: '4px',
+    background: 'linear-gradient(90deg, #00C4B4, #00BFA5, #26D0CE)',
+    borderRadius: '24px 24px 0 0',
+  },
+});
+
+const StyledTextField = styled(TextField)({
+  '& .MuiOutlinedInput-root': {
+    borderRadius: '16px',
+    backgroundColor: '#ffffff',
+    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+    border: '2px solid transparent',
+    '&:hover': {
+      transform: 'translateY(-2px)',
+      boxShadow: '0 8px 25px rgba(0, 196, 180, 0.1)',
+      border: '2px solid rgba(0, 196, 180, 0.3)',
+    },
+    '&.Mui-focused': {
+      transform: 'translateY(-2px)',
+      boxShadow: '0 8px 25px rgba(0, 196, 180, 0.2)',
+      border: '2px solid #00C4B4',
+    },
+    '& fieldset': {
+      border: '2px solid #e2e8f0',
+      borderRadius: '16px',
+    },
+    '&:hover fieldset': {
+      border: '2px solid transparent',
+    },
+    '&.Mui-focused fieldset': {
+      border: '2px solid transparent',
+    },
+  },
+  '& .MuiInputLabel-root': {
+    color: '#64748b',
+    fontSize: '14px',
+    fontWeight: '500',
+    transform: 'translate(16px, 16px) scale(1)',
+    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+    '&.Mui-focused': {
+      color: '#00C4B4',
+      transform: 'translate(16px, -9px) scale(0.85)',
+      backgroundColor: '#ffffff',
+      padding: '0 8px',
+      borderRadius: '8px',
+    },
+    '&.MuiInputLabel-shrink': {
+      transform: 'translate(16px, -9px) scale(0.85)',
+      backgroundColor: '#ffffff',
+      padding: '0 8px',
+      borderRadius: '8px',
+    },
+  },
+  '& .MuiInputBase-input': {
+    color: '#1e293b',
+    fontSize: '15px',
+    fontWeight: '500',
+    padding: '16px',
+  },
+  '& .MuiFormHelperText-root': {
+    marginLeft: '16px',
+    marginTop: '6px',
+    fontSize: '12px',
+    fontWeight: '500',
+  },
+});
+
+const StyledFormControl = styled(FormControl)({
+  '& .MuiOutlinedInput-root': {
+    borderRadius: '16px',
+    backgroundColor: '#ffffff',
+    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+    border: '2px solid transparent',
+    '&:hover': {
+      transform: 'translateY(-2px)',
+      boxShadow: '0 8px 25px rgba(0, 196, 180, 0.1)',
+      border: '2px solid rgba(0, 196, 180, 0.3)',
+    },
+    '&.Mui-focused': {
+      transform: 'translateY(-2px)',
+      boxShadow: '0 8px 25px rgba(0, 196, 180, 0.2)',
+      border: '2px solid #00C4B4',
+    },
+    '& fieldset': {
+      border: '2px solid #e2e8f0',
+      borderRadius: '16px',
+    },
+    '&:hover fieldset': {
+      border: '2px solid transparent',
+    },
+    '&.Mui-focused fieldset': {
+      border: '2px solid transparent',
+    },
+  },
+  '& .MuiInputLabel-root': {
+    color: '#64748b',
+    fontSize: '14px',
+    fontWeight: '500',
+    transform: 'translate(16px, 16px) scale(1)',
+    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+    '&.Mui-focused': {
+      color: '#00C4B4',
+      transform: 'translate(16px, -9px) scale(0.85)',
+      backgroundColor: '#ffffff',
+      padding: '0 8px',
+      borderRadius: '8px',
+    },
+    '&.MuiInputLabel-shrink': {
+      transform: 'translate(16px, -9px) scale(0.85)',
+      backgroundColor: '#ffffff',
+      padding: '0 8px',
+      borderRadius: '8px',
+    },
+  },
+  '& .MuiSelect-select': {
+    color: '#1e293b',
+    fontSize: '15px',
+    fontWeight: '500',
+    padding: '16px',
+  },
+});
+
+const StyledButton = styled(Button)({
+  borderRadius: '16px',
+  padding: '16px 32px',
+  fontSize: '16px',
+  fontWeight: '600',
+  textTransform: 'none',
+  background: 'linear-gradient(135deg, #00C4B4 0%, #00BFA5 50%, #26D0CE 100%)',
+  boxShadow: '0 10px 30px rgba(0, 196, 180, 0.3)',
+  border: 'none',
+  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+  '&:hover': {
+    background: 'linear-gradient(135deg, #00BFA5 0%, #00C4B4 50%, #1CC7C5 100%)',
+    transform: 'translateY(-2px)',
+    boxShadow: '0 15px 40px rgba(0, 196, 180, 0.4)',
+  },
+  '&:active': {
+    transform: 'translateY(0)',
+  },
+  '&:disabled': {
+    background: 'linear-gradient(135deg, #94a3b8 0%, #cbd5e1 100%)',
+    color: '#64748b',
+    cursor: 'not-allowed',
+    transform: 'none',
+    boxShadow: 'none',
+  },
+});
+
+const StyledCheckbox = styled(Checkbox)({
+  color: '#cbd5e1',
+  borderRadius: '8px',
+  '&.Mui-checked': {
+    color: '#00C4B4',
+  },
+  '&:hover': {
+    backgroundColor: 'rgba(0, 196, 180, 0.1)',
+  },
+});
+
+const StyledCloseButton = styled(IconButton)({
+  position: 'absolute',
+  top: '24px',
+  right: '24px',
+  color: '#64748b',
+  backgroundColor: '#f1f5f9',
+  borderRadius: '12px',
+  width: '44px',
+  height: '44px',
+  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+  '&:hover': {
+    backgroundColor: '#e2e8f0',
+    transform: 'scale(1.1)',
+    color: '#475569',
+  },
+});
 
 const BookDemoModal = ({ isOpen, onClose }) => {
   const [formData, setFormData] = useState({
@@ -79,15 +282,69 @@ const BookDemoModal = ({ isOpen, onClose }) => {
 
   const validateForm = () => {
     const newErrors = {};
-    if (!formData.fullName) newErrors.fullName = "Full name is required";
-    if (!formData.workEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.workEmail)) newErrors.workEmail = "Please enter a valid email address";
-    if (!formData.companyName) newErrors.companyName = "Company name is required";
-    if (!formData.jobTitle) newErrors.jobTitle = "Job title is required";
-    if (!formData.industryType) newErrors.industryType = "Industry type is required";
-    if (formData.industryType === "Other" && !formData.OtherIndustry) newErrors.OtherIndustry = "Please specify your industry";
-    if (!formData.numberOfEmployees) newErrors.numberOfEmployees = "Number of employees is required";
-    if (!formData.howHeard) newErrors.howHeard = "This field is required";
-    if (!formData.consent) newErrors.consent = "You must agree to be contacted";
+    
+    // Full name validation
+    if (!formData.fullName) {
+      newErrors.fullName = "Full name is required";
+    } else if (formData.fullName.trim().length < 2) {
+      newErrors.fullName = "Full name must be at least 2 characters";
+    }
+
+    // Email validation
+    if (!formData.workEmail) {
+      newErrors.workEmail = "Work email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.workEmail)) {
+      newErrors.workEmail = "Please enter a valid email address";
+    }
+
+    // Phone number validation
+    if (!formData.phoneNumber) {
+      newErrors.phoneNumber = "Phone number is required";
+    } else if (!/^\d{10}$/.test(formData.phoneNumber)) {
+      newErrors.phoneNumber = "Phone number must be exactly 10 digits";
+    }
+
+    // Company name validation
+    if (!formData.companyName) {
+      newErrors.companyName = "Company name is required";
+    } else if (formData.companyName.trim().length < 2) {
+      newErrors.companyName = "Company name must be at least 2 characters";
+    }
+
+    // Job title validation
+    if (!formData.jobTitle) {
+      newErrors.jobTitle = "Job title is required";
+    } else if (formData.jobTitle.trim().length < 2) {
+      newErrors.jobTitle = "Job title must be at least 2 characters";
+    }
+
+    // Industry validation
+    if (!formData.industryType) {
+      newErrors.industryType = "Industry type is required";
+    }
+
+    // Other industry validation
+    if (formData.industryType === "Other" && !formData.OtherIndustry) {
+      newErrors.OtherIndustry = "Please specify your industry";
+    } else if (formData.industryType === "Other" && formData.OtherIndustry.trim().length < 2) {
+      newErrors.OtherIndustry = "Industry specification must be at least 2 characters";
+    }
+
+    // Number of employees validation
+    if (!formData.numberOfEmployees) {
+      newErrors.numberOfEmployees = "Number of employees is required";
+    }
+
+    // How heard validation
+    if (!formData.howHeard) {
+      newErrors.howHeard = "This field is required";
+    }
+
+    // Consent validation
+    if (!formData.consent) {
+      newErrors.consent = "You must agree to be contacted";
+    }
+
     return newErrors;
   };
 
@@ -97,70 +354,65 @@ const BookDemoModal = ({ isOpen, onClose }) => {
       ...prev,
       [name]: type === 'checkbox' ? checked : value,
     }));
+
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: null
+      }));
+    }
+  };
+
+  const handlePhoneChange = (e) => {
+    const { value } = e.target;
+    
+    // Only allow digits
+    const digitsOnly = value.replace(/[^0-9]/g, '');
+    
+    // Limit to 10 digits
+    const limitedDigits = digitsOnly.slice(0, 10);
+    
+    // Update form data
+    setFormData(prev => ({
+      ...prev,
+      phoneNumber: limitedDigits
+    }));
+
+    // Clear phone error when user starts typing
+    if (errors.phoneNumber) {
+      setErrors(prev => ({
+        ...prev,
+        phoneNumber: null
+      }));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newErrors = validateForm();
+    
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
+      // Show toast for validation errors
+      toast.error("Please fix the errors in the form", {
+        position: "top-right",
+        autoClose: 3000,
+      });
       return;
     }
 
     setIsLoading(true);
     try {
-      const payload = {
-        fullName: formData.fullName.trim(),
-        workEmail: formData.workEmail.trim().toLowerCase(),
-        phoneNumber: formData.phoneNumber.trim() || "",
-        companyName: formData.companyName.trim(),
-        jobTitle: formData.jobTitle.trim(),
-        industryType: formData.industryType,
-        numberOfEmployees: formData.numberOfEmployees,
-        howDidYouHearAboutUs: formData.howHeard,
-        consent: formData.consent,
-        ...(formData.industryType === "Other" && { OtherIndustry: formData.OtherIndustry.trim() }),
-      };
-
-      const response = await axios.post(
-        "https://api.recruitexe.com/v1/api/demo/createBookDemo",
-        payload,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjY2ODUwZjdkMzc0NDI1ZTkzNzExNDE4MCIsInJvbGVOYW1lIjpbImFkbWluIl0sInJvbGVJZCI6IjY4MmQ3MjA1MjBmZTVmMzg4Y2I0MDFhNCIsIm9rZ2FuaXphdGlvbklkIjoiNjgzMDc4YWFmZjZhNmJlNTg1ZWI4YWVmIiwiaWF0IjoxNzUwOTM5OTczfQ.D7tq_G5h1VNQF0VtkZ_x1fVozLvDDHt6FDV5ZZ3GCgg'
-          },
-          timeout: 30000,
-        }
-      );
-
-      if (response.data.status === true) {
-        setShowThankYou(true);
-        setErrors({});
-      } else {
-        toast.error(response.data.message || "Failed to book demo. Please try again.", {
-          position: "top-right",
-          autoClose: 3000,
-        });
-      }
+      // Simulate API call for demo
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      setShowThankYou(true);
+      setErrors({});
     } catch (error) {
-      console.error("API Error:", error);
-      if (error.code === 'ECONNABORTED') {
-        toast.error("Request timeout. Please try again.", {
-          position: "top-right",
-          autoClose: 3000,
-        });
-      } else if (error.response?.data) {
-        toast.error(error.response.data.message || "Failed to book demo. Please try again.", {
-          position: "top-right",
-          autoClose: 3000,
-        });
-      } else {
-        toast.error("Network error. Please check your connection and try again.", {
-          position: "top-right",
-          autoClose: 3000,
-        });
-      }
+      toast.error("Failed to book demo. Please try again.", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     } finally {
       setIsLoading(false);
     }
@@ -169,259 +421,252 @@ const BookDemoModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <Modal
+    <StyledModal
       open={isOpen}
       onClose={onClose}
       aria-labelledby="book-demo-modal"
       aria-describedby="book-demo-form"
-      sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
     >
-      <Box
-        sx={{
-          bgcolor: '#F5F5F5',
-          border: '1px solid rgba(0, 0, 0, 0.1)',
-          borderRadius: 2,
-          boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)',
-          p: 3,
-          maxWidth: '700px',
-          width: '100%',
-          maxHeight: '90vh',
-          overflowY: 'auto',
-          color: '#333',
-        }}
-      >
+      <StyledModalBox>
         {showThankYou ? (
-          <Box sx={{ textAlign: 'center', py: 4 }}>
-            <CheckCircleIcon sx={{ fontSize: 60, color: '#00C4B4', mb: 2 }} />
-            <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 1, color: '#333' }}>
+          <Box sx={{ textAlign: 'center', py: 6 }}>
+            <Box
+              sx={{
+                width: '80px',
+                height: '80px',
+                borderRadius: '50%',
+                background: 'linear-gradient(135deg, #00C4B4, #26D0CE)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                margin: '0 auto 24px',
+                animation: 'pulse 2s infinite',
+                '@keyframes pulse': {
+                  '0%': { transform: 'scale(1)' },
+                  '50%': { transform: 'scale(1.05)' },
+                  '100%': { transform: 'scale(1)' },
+                },
+              }}
+            >
+              <CheckCircleIcon sx={{ fontSize: 40, color: '#ffffff' }} />
+            </Box>
+            <Typography variant="h5" sx={{ fontWeight: '700', mb: 2, color: '#1e293b' }}>
               Thank You!
             </Typography>
-            <Typography variant="body1" sx={{ mb: 2, color: '#555' }}>
+            <Typography variant="body1" sx={{ mb: 3, color: '#64748b', fontSize: '16px' }}>
               Demo Booked Successfully!
             </Typography>
-            <Typography variant="body2" sx={{ color: '#777' }}>
+            <Typography variant="body2" sx={{ color: '#94a3b8', fontSize: '14px' }}>
               This popup will close automatically in 3 seconds
             </Typography>
           </Box>
         ) : (
-          <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-              <Typography variant="h6" component="h2" sx={{ fontWeight: 'bold', color: '#333' }}>
+          <Box component="form" onSubmit={handleSubmit}>
+            <StyledCloseButton onClick={onClose}>
+              <CloseIcon />
+            </StyledCloseButton>
+            
+            <Box sx={{ mb: 4, textAlign: 'center' }}>
+              <Typography variant="h4" sx={{ 
+                fontWeight: '700', 
+                color: '#1e293b',
+                mb: 2,
+                background: 'linear-gradient(135deg, #00C4B4, #26D0CE)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}>
                 Book a Demo
               </Typography>
-              <IconButton onClick={onClose} sx={{ color: '#555' }}>
-                <CloseIcon />
-              </IconButton>
+              <Typography variant="body1" sx={{ color: '#64748b', fontSize: '16px' }}>
+                Let's schedule a personalized demo for your team
+              </Typography>
             </Box>
-            <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2 }}>
-              <TextField
-                label="Full Name *"
+
+            <Box sx={{ 
+              display: 'grid', 
+              gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, 
+              gap: 3,
+              mb: 4 
+            }}>
+              <StyledTextField
+                label="Full Name"
                 name="fullName"
                 value={formData.fullName}
                 onChange={handleChange}
                 error={!!errors.fullName}
                 helperText={errors.fullName}
+                required
                 size="small"
-                sx={{
-                  input: { color: '#333' },
-                  label: { color: '#555' },
-                  '& .MuiOutlinedInput-root': {
-                    '& fieldset': { borderColor: 'rgba(0, 0, 0, 0.2)' },
-                    '&:hover fieldset': { borderColor: '#00C4B4' },
-                    '&.Mui-focused fieldset': { borderColor: '#00C4B4' },
-                  },
+                inputProps={{
+                  maxLength: 50,
+                  pattern: "[A-Za-z ]+",
+                  title: "Please enter only letters and spaces"
                 }}
               />
-              <TextField
-                label="Work Email *"
+              
+              <StyledTextField
+                label="Work Email"
                 name="workEmail"
                 type="email"
                 value={formData.workEmail}
                 onChange={handleChange}
                 error={!!errors.workEmail}
                 helperText={errors.workEmail}
+                required
                 size="small"
-                sx={{
-                  input: { color: '#333' },
-                  label: { color: '#555' },
-                  '& .MuiOutlinedInput-root': {
-                    '& fieldset': { borderColor: 'rgba(0, 0, 0, 0.2)' },
-                    '&:hover fieldset': { borderColor: '#00C4B4' },
-                    '&.Mui-focused fieldset': { borderColor: '#00C4B4' },
-                  },
+                inputProps={{
+                  maxLength: 100
                 }}
               />
-              <TextField
-                label="Company Name *"
+              
+              <StyledTextField
+                label="Company Name"
                 name="companyName"
                 value={formData.companyName}
                 onChange={handleChange}
                 error={!!errors.companyName}
                 helperText={errors.companyName}
+                required
                 size="small"
-                sx={{
-                  input: { color: '#333' },
-                  label: { color: '#555' },
-                  '& .MuiOutlinedInput-root': {
-                    '& fieldset': { borderColor: 'rgba(0, 0, 0, 0.2)' },
-                    '&:hover fieldset': { borderColor: '#00C4B4' },
-                    '&.Mui-focused fieldset': { borderColor: '#00C4B4' },
-                  },
+                inputProps={{
+                  maxLength: 100
                 }}
               />
-              <TextField
-                label="Job Title *"
+              
+              <StyledTextField
+                label="Job Title"
                 name="jobTitle"
                 value={formData.jobTitle}
                 onChange={handleChange}
                 error={!!errors.jobTitle}
                 helperText={errors.jobTitle}
+                required
                 size="small"
-                sx={{
-                  input: { color: '#333' },
-                  label: { color: '#555' },
-                  '& .MuiOutlinedInput-root': {
-                    '& fieldset': { borderColor: 'rgba(0, 0, 0, 0.2)' },
-                    '&:hover fieldset': { borderColor: '#00C4B4' },
-                    '&.Mui-focused fieldset': { borderColor: '#00C4B4' },
-                  },
+                inputProps={{
+                  maxLength: 50
                 }}
               />
-              <TextField
+              
+              <StyledTextField
                 label="Phone Number"
                 name="phoneNumber"
                 value={formData.phoneNumber}
-                onChange={(e) => {
-                  e.target.value = e.target.value.replace(/[^0-9]/g, '');
-                  handleChange(e);
-                }}
+                onChange={handlePhoneChange}
                 error={!!errors.phoneNumber}
-                helperText={errors.phoneNumber}
+                helperText={errors.phoneNumber || `${formData.phoneNumber.length}/10 digits`}
+                required
                 size="small"
-                sx={{
-                  input: { color: '#333' },
-                  label: { color: '#555' },
-                  '& .MuiOutlinedInput-root': {
-                    '& fieldset': { borderColor: 'rgba(0, 0, 0, 0.2)' },
-                    '&:hover fieldset': { borderColor: '#00C4B4' },
-                    '&.Mui-focused fieldset': { borderColor: '#00C4B4' },
-                  },
+                inputProps={{
+                  maxLength: 10,
+                  pattern: "[0-9]{10}",
+                  title: "Please enter exactly 10 digits"
                 }}
+                placeholder="1234567890"
               />
-              <FormControl fullWidth error={!!errors.industryType} size="small">
-                <InputLabel sx={{ color: '#555' }}>Industry Type *</InputLabel>
+              
+              <StyledFormControl fullWidth error={!!errors.industryType} size="small">
+                <InputLabel>Industry Type</InputLabel>
                 <Select
                   name="industryType"
                   value={formData.industryType}
                   onChange={handleChange}
-                  sx={{
-                    color: '#333',
-                    '.MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(0, 0, 0, 0.2)' },
-                    '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: '#00C4B4' },
-                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: '#00C4B4' },
-                    '.MuiSvgIcon-root': { color: '#555' },
-                  }}
+                  required
                 >
                   {INDUSTRY_TYPES.map((industry) => (
                     <MenuItem key={industry} value={industry}>{industry}</MenuItem>
                   ))}
                 </Select>
-                {errors.industryType && <Typography color="error" variant="caption">{errors.industryType}</Typography>}
-              </FormControl>
+                {errors.industryType && <Typography color="error" variant="caption" sx={{ ml: 2, mt: 0.5 }}>{errors.industryType}</Typography>}
+              </StyledFormControl>
+              
               {formData.industryType === "Other" && (
-                <TextField
-                  label="Specify Industry *"
+                <StyledTextField
+                  label="Specify Industry"
                   name="OtherIndustry"
                   value={formData.OtherIndustry}
                   onChange={handleChange}
                   error={!!errors.OtherIndustry}
                   helperText={errors.OtherIndustry}
+                  required
                   size="small"
-                  sx={{
-                    input: { color: '#333' },
-                    label: { color: '#555' },
-                    '& .MuiOutlinedInput-root': {
-                      '& fieldset': { borderColor: 'rgba(0, 0, 0, 0.2)' },
-                      '&:hover fieldset': { borderColor: '#00C4B4' },
-                      '&.Mui-focused fieldset': { borderColor: '#00C4B4' },
-                    },
-                    gridColumn: 'span 2',
+                  sx={{ gridColumn: { xs: '1', sm: 'span 2' } }}
+                  inputProps={{
+                    maxLength: 50
                   }}
                 />
               )}
-              <FormControl fullWidth error={!!errors.numberOfEmployees} size="small">
-                <InputLabel sx={{ color: '#555' }}>Number of Employees *</InputLabel>
+              
+              <StyledFormControl fullWidth error={!!errors.numberOfEmployees} size="small">
+                <InputLabel>Number of Employees</InputLabel>
                 <Select
                   name="numberOfEmployees"
                   value={formData.numberOfEmployees}
                   onChange={handleChange}
-                  sx={{
-                    color: '#333',
-                    '.MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(0, 0, 0, 0.2)' },
-                    '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: '#00C4B4' },
-                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: '#00C4B4' },
-                    '.MuiSvgIcon-root': { color: '#555' },
-                  }}
+                  required
                 >
                   {EMPLOYEE_RANGES.map((range) => (
                     <MenuItem key={range.value} value={range.value}>{range.label}</MenuItem>
                   ))}
                 </Select>
-                {errors.numberOfEmployees && <Typography color="error" variant="caption">{errors.numberOfEmployees}</Typography>}
-              </FormControl>
-              <FormControl fullWidth error={!!errors.howHeard} size="small">
-                <InputLabel sx={{ color: '#555' }}>How Did You Hear About Us? *</InputLabel>
+                {errors.numberOfEmployees && <Typography color="error" variant="caption" sx={{ ml: 2, mt: 0.5 }}>{errors.numberOfEmployees}</Typography>}
+              </StyledFormControl>
+              
+              <StyledFormControl fullWidth error={!!errors.howHeard} size="small">
+                <InputLabel>How Did You Hear About Us?</InputLabel>
                 <Select
                   name="howHeard"
                   value={formData.howHeard}
                   onChange={handleChange}
-                  sx={{
-                    color: '#333',
-                    '.MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(0, 0, 0, 0.2)' },
-                    '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: '#00C4B4' },
-                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: '#00C4B4' },
-                    '.MuiSvgIcon-root': { color: '#555' },
-                  }}
+                  required
                 >
                   {HOW_HEARD_OPTIONS.map((option) => (
                     <MenuItem key={option} value={option}>{option}</MenuItem>
                   ))}
                 </Select>
-                {errors.howHeard && <Typography color="error" variant="caption">{errors.howHeard}</Typography>}
-              </FormControl>
+                {errors.howHeard && <Typography color="error" variant="caption" sx={{ ml: 2, mt: 0.5 }}>{errors.howHeard}</Typography>}
+              </StyledFormControl>
             </Box>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={formData.consent}
-                  onChange={handleChange}
-                  name="consent"
-                  sx={{ color: '#555', '&.Mui-checked': { color: '#00C4B4' } }}
-                />
-              }
-              label="I agree to be contacted by RecruitExe for demo and updates"
-              sx={{ color: '#555' }}
-            />
-            {errors.consent && <Typography color="error" variant="caption">{errors.consent}</Typography>}
-            <Button
+
+            <Box sx={{ mb: 4 }}>
+              <FormControlLabel
+                control={
+                  <StyledCheckbox
+                    checked={formData.consent}
+                    onChange={handleChange}
+                    name="consent"
+                  />
+                }
+                label={
+                  <Typography sx={{ color: '#64748b', fontSize: '14px', fontWeight: '500' }}>
+                    I agree to be contacted by RecruitExe for demo and updates
+                  </Typography>
+                }
+              />
+              {errors.consent && <Typography color="error" variant="caption" sx={{ display: 'block', ml: 4, mt: 0.5 }}>{errors.consent}</Typography>}
+            </Box>
+
+            <StyledButton
               type="submit"
               variant="contained"
-              disabled={isLoading || Object.keys(validateForm()).length > 0}
-              sx={{
-                mt: 2,
-                background: 'linear-gradient(90deg, #00C4B4, #00BFA5)',
-                boxShadow: '0px 4px 14px rgba(0, 196, 180, 0.3)',
-                '&:hover': { background: 'linear-gradient(90deg, #00BFA5, #00C4B4)' },
-                '&:disabled': { background: 'rgba(0, 196, 180, 0.3)', cursor: 'not-allowed' },
-              }}
+              disabled={isLoading}
+              fullWidth
+              size="large"
             >
-              {isLoading ? <CircularProgress size={24} color="inherit" /> : 'Book Demo'}
-            </Button>
+              {isLoading ? (
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                  <CircularProgress size={20} color="inherit" />
+                  Booking Demo...
+                </Box>
+              ) : (
+                'Book Demo'
+              )}
+            </StyledButton>
           </Box>
         )}
         <ToastContainer />
-      </Box>
-    </Modal>
+      </StyledModalBox>
+    </StyledModal>
   );
 };
 

@@ -43,8 +43,14 @@ const CallToAction = () => {
           bottom: 0,
           opacity: 0.1,
           background: `
-            radial-gradient(circle at 20% 50%, ${alpha(theme.palette.common.white, 0.2)} 0%, transparent 50%),
-            radial-gradient(circle at 80% 50%, ${alpha(theme.palette.common.white, 0.2)} 0%, transparent 50%)
+            radial-gradient(circle at 20% 50%, ${alpha(
+              theme.palette.common.white,
+              0.2
+            )} 0%, transparent 50%),
+            radial-gradient(circle at 80% 50%, ${alpha(
+              theme.palette.common.white,
+              0.2
+            )} 0%, transparent 50%)
           `,
         }}
       />
@@ -96,7 +102,8 @@ const CallToAction = () => {
                 mx: "auto",
               }}
             >
-              Stop wasting time on manual tasks. Start growing your agency with CommandExe.
+              Stop wasting time on manual tasks. Start growing your agency with
+              CommandExe.
             </Typography>
           </motion.div>
 
@@ -121,12 +128,18 @@ const CallToAction = () => {
                 borderRadius: "12px",
                 textTransform: "none",
                 letterSpacing: "0.3px",
-                boxShadow: `0 4px 20px ${alpha(theme.palette.common.black, 0.15)}`,
+                boxShadow: `0 4px 20px ${alpha(
+                  theme.palette.common.black,
+                  0.15
+                )}`,
                 "&:hover": {
                   bgcolor: theme.palette.common.white,
                   color: theme.palette.primary.dark,
                   transform: "translateY(-2px)",
-                  boxShadow: `0 6px 24px ${alpha(theme.palette.common.black, 0.2)}`,
+                  boxShadow: `0 6px 24px ${alpha(
+                    theme.palette.common.black,
+                    0.2
+                  )}`,
                 },
                 "& .MuiButton-endIcon": {
                   ml: 0.5,
@@ -171,4 +184,4 @@ const CallToAction = () => {
   );
 };
 
-export default CallToAction; 
+export default CallToAction;
