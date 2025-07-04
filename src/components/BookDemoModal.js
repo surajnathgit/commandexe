@@ -479,7 +479,7 @@ const BookDemoModal = ({ isOpen, onClose }) => {
                 Book a Demo
               </Typography>
               <Typography variant="body1" sx={{ color: '#64748b', fontSize: '16px' }}>
-                Let's schedule a personalized demo for your team
+                {"Let's schedule a personalized demo for your team"}
               </Typography>
             </Box>
 
