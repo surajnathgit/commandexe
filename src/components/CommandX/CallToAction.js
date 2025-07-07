@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import {
   Box,
   Container,
@@ -10,6 +11,7 @@ import {
 } from "@mui/material";
 import { ArrowForward } from "@mui/icons-material";
 import { motion } from "framer-motion";
+import BookDemoModal from "../BookDemoModal";
 
 /**
  * CallToAction Component
@@ -18,6 +20,16 @@ import { motion } from "framer-motion";
  */
 const CallToAction = () => {
   const theme = useTheme();
+   const [isModalOpen, setIsModalOpen] = useState(false);
+
+
+    const handleModalOpen = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <Box
@@ -117,6 +129,7 @@ const CallToAction = () => {
             <Button
               variant="contained"
               size="large"
+              onClick={handleModalOpen}
               endIcon={<ArrowForward sx={{ fontSize: "1.2rem" }} />}
               sx={{
                 bgcolor: alpha(theme.palette.common.white, 0.98),
@@ -180,6 +193,7 @@ const CallToAction = () => {
           </motion.div>
         </Stack>
       </Container>
+      <BookDemoModal isOpen={isModalOpen} onClose={handleModalClose} />
     </Box>
   );
 };

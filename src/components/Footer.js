@@ -32,7 +32,7 @@ const socialLinks = [
   { icon: <Facebook />, href: "https://facebook.com/commandx" },
   { icon: <Twitter />, href: "https://twitter.com/commandx" },
   { icon: <LinkedIn />, href: "https://linkedin.com/company/commandx" },
-  { icon: <GitHub />, href: "https://github.com/commandx" },
+  // { icon: <GitHub />, href: "https://github.com/commandx" },
 ];
 
 const Footer = () => {

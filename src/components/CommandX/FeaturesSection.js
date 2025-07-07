@@ -68,8 +68,9 @@ const FeaturesSection = () => {
   ];
 
   return (
-    // Main section container with gradient background
+    // Main section container with gradient background and ID for scroll targeting
     <Box
+      id="features-section"
       sx={{
         py: { xs: 2, md: 5 }, 
         background: `

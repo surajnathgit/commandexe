@@ -118,6 +118,17 @@ const HeroSection = () => {
     });
   };
 
+  // Smooth scroll function to Features section
+  const scrollToFeatures = () => {
+    const featuresSection = document.getElementById('features-section');
+    if (featuresSection) {
+      featuresSection.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
   const variants = {
     hidden: { opacity: 0, y: 40 },
     visible: (i) => ({
@@ -305,52 +316,6 @@ const HeroSection = () => {
                 }}
               >
                 <Button
-                  variant="contained"
-                  size="large"
-                  startIcon={
-                    <Box
-                      component={motion.div}
-                      animate={{ rotate: [0, 10, 0] }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                    >
-                      <Bolt
-                        sx={{
-                          fontSize: {
-                            xs: "1.2rem",
-                            sm: "1.4rem",
-                            md: "1.5rem",
-                          },
-                        }}
-                      />
-                    </Box>
-                  }
-                  sx={{
-                    px: { xs: 1.5, sm: 2, md: 3 },
-                    py: { xs: 0.75, sm: 1, md: 1.25 },
-                    borderRadius: 2,
-                    fontWeight: 700,
-                    fontSize: { xs: "0.85rem", sm: "0.9rem", md: "1rem" },
-                    textTransform: "none",
-                    minWidth: { xs: "100%", sm: "auto" },
-                    maxWidth: { xs: "100%", sm: "none" },
-                    background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.primary.light})`,
-                    boxShadow: `0 4px 20px ${alpha(
-                      theme.palette.primary.main,
-                      0.2
-                    )}`,
-                    "&:hover": {
-                      transform: "translateY(-2px)",
-                      boxShadow: `0 6px 24px ${alpha(
-                        theme.palette.primary.main,
-                        0.3
-                      )}`,
-                    },
-                    transition: "all 0.3s ease",
-                  }}
-                >
-                 Request a Demo
-                </Button>
-                <Button
                   variant="outlined"
                   size="large"
                   startIcon={
@@ -360,6 +325,7 @@ const HeroSection = () => {
                       }}
                     />
                   }
+                  onClick={scrollToFeatures}
                   sx={{
                     px: { xs: 1.5, sm: 2, md: 3 },
                     py: { xs: 0.75, sm: 1, md: 1.25 },
