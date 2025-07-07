@@ -25,7 +25,7 @@ import BookDemoModal from './BookDemoModal';
 const navigationItems = [
   { name: 'Home', path: '/' },
   { name: 'Pricing', path: '/pricing' },
-  { name: 'Contact', path: '/contact' },
+  // { name: 'Contact', path: '/contact' },
 ];
 
 const ImprovedHeader = () => {
